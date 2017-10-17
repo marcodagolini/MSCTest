@@ -10,7 +10,7 @@
         var lpWidgetSDK,
         widgetSDKAPI = lpTag.LPWidgetSDK.API;
         window.addEventListener("load", function () {
-            var bindingEvent = [widgetSDKAPI.events.CONVERSATION_INFO, widgetSDKAPI.events.MESSAGES],
+            var bindingEvent = [widgetSDKAPI.events.MESSAGES],
                     opts = {bind: {}};
             bindingEvent.forEach(function (eventName) {
                 opts.bind[eventName] = {func: _onEvent, context: this};
@@ -25,18 +25,9 @@
                 if (text) {
                     funci(text);
                 }
-            } else if (eventData && widgetSDKAPI.events.CONVERSATION_INFO === eventData.type) {
-                var state = eventData.data && eventData.data.state === "ended";
-                if (state) {
-                    disposeWidget();
-                }
-            }
+            } 
         }
-        function disposeWidget() {
-            lpWidgetSDK.dispose(function (data) {
-                console.log("widget has been disposed");
-            });
-        }
+        
        
         function isYTSearch(text) {
             var div = document.createElement("div");
