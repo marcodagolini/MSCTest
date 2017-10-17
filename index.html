@@ -21,6 +21,7 @@
         function _onEvent(eventData) {
 		
 	    var Now = Date.now();
+	    alert(10000 - Now - Date.parse(eventData.data.ts));
             if (eventData && widgetSDKAPI.events.MESSAGES === eventData.type && (10000 - Now - Date.parse(eventData.data.ts))) {
                 var text = eventData.data && typeof  eventData.data.content === "string" && eventData.data.content;
                 if (text) {
