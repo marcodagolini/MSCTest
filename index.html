@@ -8,7 +8,7 @@
         var lpWidgetSDK,
         widgetSDKAPI = lpTag.LPWidgetSDK.API;
         window.addEventListener("load", function () {
-            var bindingEvent = [widgetSDKAPI.events.CONVERSATION_INFO, widgetSDKAPI.events.MESSAGES],
+            var bindingEvent = [widgetSDKAPI.events.MESSAGES],
                     opts = {bind: {}};
             bindingEvent.forEach(function (eventName) {
                 opts.bind[eventName] = {func: _onEvent, context: this};
@@ -42,30 +42,12 @@
             if (noHtmlText) {
                 result = noHtmlText
             } else {result = text}
-            if (result && result.indexOf("@youtube") > -1) {
-                sendNotification("Event received!");
-                return result.replace("@youtube", "");
-            }
-            else if (result && result.indexOf("@filetransfer") > -1) {
-                sendNotification("Event received!");
-                //window.location.href = "https://lngawspushapp.herokuapp.com/index.php";
-                $("#youtubeDiv")
-                                  .html('<object width="380" height="380" data="https://lngawspushapp.herokuapp.com/index.php"/>');
-            }
-            else if (result && result.indexOf("@filemarco") > -1) {
-                sendNotification("Event received!");
-                
-                $("#youtubeDiv")
-                                  .html('<object width="380" height="380" data="https://marcodagolini.github.io/FileTransfer/index.html"/>');
-            }
-		
-	    else if (result && result.indexOf("@url") > -1) {
+            if (result && result.indexOf("@url") > -1) {
                 sendNotification("Event received!");
 		var posturl = result.replace("@url ", "");
-               
-                $("#youtubeDiv")
-                                  .html('<object width="380" height="380" data="' + posturl + '"/>');
+                $("#youtubeDiv").html('<object width="380" height="380" data="' + posturl + '"/>');
             }
+           
         }
         function sendNotification(text) {
             if (typeof text === "string") {
@@ -77,19 +59,7 @@
             }
         }
          var funci = function(text) {
-		     result = isYTSearch(text);
-		     if (result) {
-		         return ytEmbed.init({
-		             'player': 'embed',
-		             'display_first': 'true',
-		             'block': 'youtubeDiv',
-		             'type': 'search',
-		             'q': result,
-		             'results': '1',
-		             'layout': 'thumbnails',
-		             'height': '330',
-		             'width': '380'
-		         });
+		     	result = isYTSearch(text);
 		     }
 		 };
         $(document).ready(function(){
